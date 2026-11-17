@@ -36,3 +36,22 @@
 @keyframes splash-full-float{from{transform:translateY(0)}to{transform:translateY(-5px)}}
 @media(prefers-reduced-motion:reduce){.splash-art{animation:none}}
 
+/* Güzellik stüdyosu: fotoğraflı premium kartlar */
+.tools-grid{gap:13px}
+.beauty-card{padding:0;gap:0;min-height:220px;overflow:hidden;border:1px solid #f7d6ea;border-radius:22px;box-shadow:0 10px 25px #ad548e23;background:#fff;transition:transform .2s ease}
+.beauty-card:active{transform:scale(.975)}
+.beauty-card-media{position:relative;display:block;width:100%;height:158px;overflow:hidden;background:linear-gradient(140deg,#ed8cbe,#a05ac2)}
+.beauty-card-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.beauty-card-shade{position:absolute;inset:0;background:linear-gradient(0deg,#52113c88,transparent 56%)}
+.beauty-card-icon{position:absolute;right:10px;top:10px;display:grid;place-items:center;width:36px;height:36px;border:1px solid #ffffff9c;border-radius:50%;color:#fff;background:#5c164a59;backdrop-filter:blur(5px)}
+.beauty-card-badge{position:absolute;left:10px;top:10px;padding:6px 9px;border-radius:20px;background:#fff;color:#b44288;font-size:10px;font-weight:800;letter-spacing:.3px}
+.beauty-card-info{display:flex;flex-direction:column;gap:6px;width:100%;padding:14px 13px 17px;text-align:left}
+.beauty-card-info strong{font-size:14px;line-height:1.2;color:#39233b}
+.beauty-card-info small{font-size:11px;color:#a18b9f}
+/* Açılış: görselin tamamı görünür, boşluklarda aynı görselin bulanık devamı */
+.splash-screen{isolation:isolate;background:#4d103e}
+.splash-screen::after{content:'';position:absolute;inset:-28px;z-index:-1;background:url('/pembe-splash.webp') center/cover no-repeat;filter:blur(30px) brightness(.60) saturate(1.3);transform:scale(1.08);pointer-events:none}
+.splash-art-wrap{z-index:1}
+.splash-art{object-fit:contain!important;object-position:center!important;mask-image:none!important;-webkit-mask-image:none!important}
+.splash-progress-area{z-index:5}
+
