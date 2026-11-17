@@ -14,6 +14,7 @@ function App() {
   const [page, setPage] = useState('home');
   const [history, setHistory] = useState([]);
   const [splash, setSplash] = useState(true);
+  const [splashProgress, setSplashProgress] = useState(0);
   const [photo, setPhoto] = useState(null);
   const [filter, setFilter] = useState('none');
   const [brightness, setBrightness] = useState(100);
@@ -36,7 +37,20 @@ function App() {
   const fileRef = useRef(null);
   const appliedFilter = `${filter === 'none' ? '' : filter} brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`.trim();
 
-  useEffect(() => { const t = setTimeout(() => setSplash(false), 2100); return () => clearTimeout(t); }, []);
+  useEffect(() => {
+    const started = Date.now();
+    const duration = 4600;
+    const timer = window.setInterval(() => {
+      const elapsed = Date.now() - started;
+      const value = Math.min(100, Math.round((elapsed / duration) * 100));
+      setSplashProgress(value);
+      if (elapsed >= duration) {
+        window.clearInterval(timer);
+        window.setTimeout(() => setSplash(false), 420);
+      }
+    }, 45);
+    return () => window.clearInterval(timer);
+  }, []);
   function navigate(target) { if (target === page) return; setHistory(prev => [...prev, page]); setPage(target); window.scrollTo?.(0, 0); }
   function goBack() { if (!history.length) { setPage('home'); return; } setPage(history[history.length - 1]); setHistory(prev => prev.slice(0, -1)); window.scrollTo?.(0, 0); }
   function choosePhoto() { fileRef.current?.click(); }
@@ -83,7 +97,11 @@ function App() {
   const ProfilePage = () => <><Header title="Profilim"/><div className="profile-header"><div className="profile-avatar"><UserRound size={42}/></div><h2>Güzellik Tutkunu</h2><p>@pembebeauty</p><small>Demo profil</small></div><div className="profile-stats"><div><strong>{posts.length}</strong><span>Paylaşım</span></div><div><strong>0</strong><span>Takipçi</span></div><div><strong>{Object.values(following).filter(Boolean).length}</strong><span>Takip</span></div></div><button className="primary-btn" onClick={choosePhoto}><Camera size={18}/> Yeni Fotoğraf Paylaş</button><h3 className="section-title">Paylaşımlarım</h3>{posts.length === 0 ? <div className="empty-state"><Camera size={38}/><p>Henüz paylaşım yapmadın.</p></div> : <div className="profile-gallery">{posts.map(p => <img key={p.id} src={p.image} alt="Paylaşım" style={{ filter: p.imageFilter || 'none' }}/>)}</div>}</>;
   const ComingSoon = ({ type }) => <><Header title={type === 'hair' ? 'Saç Stilleri' : type === 'makeup' ? 'Sanal Makyaj' : 'Pembe Premium'}/><section className="coming-soon"><div className="coming-icon">{type === 'hair' ? <Scissors size={40}/> : type === 'makeup' ? <Paintbrush size={40}/> : <Crown size={40}/>}</div><span>YAKINDA</span><h2>{type === 'hair' ? 'Yeni saç stillerini keşfet' : type === 'makeup' ? 'Sanal makyaj deneyimi' : 'Premium güzellik dünyası'}</h2><p>Bu özellik henüz geliştirme aşamasında. Şimdilik fotoğraf editöründeki filtreleri deneyebilirsin.</p><button className="primary-btn" onClick={() => navigate('editor')}>Fotoğraf Editörüne Git <ChevronRight size={18}/></button><button className="text-btn" onClick={goBack}><ArrowLeft size={16}/> Geri dön</button></section></>;
   const navigation = [['home', 'Ana Sayfa', Home], ['editor', 'Editör', WandSparkles], ['explore', 'Keşfet', Compass], ['messages', 'Mesajlar', MessageCircle], ['profile', 'Profil', UserRound]];
-  return <div className="app">{splash && <div className="splash-screen"><div className="splash-glow"/><div className="splash-logo"><Sparkles size={48} strokeWidth={1.6}/></div><h1>Pembe Beauty</h1><p>Güzelliğin senin dokunuşunla</p><div className="splash-loader"><span/></div></div>}<main className="content">{page === 'home' && <HomePage/>}{page === 'editor' && <EditorPage/>}{page === 'explore' && <ExplorePage/>}{page === 'forum' && <ForumPage/>}{page === 'messages' && <MessagesPage/>}{page === 'tips' && <TipsPage/>}{page === 'profile' && <ProfilePage/>}{['premium','hair','makeup'].includes(page) && <ComingSoon type={page}/>}</main><input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={uploadPhoto}/><nav className="bottom-nav">{navigation.map(([id, label, Icon]) => <button key={id} className={page === id ? 'nav-item active' : 'nav-item'} onClick={() => navigate(id)}><Icon size={22} strokeWidth={page === id ? 2.3 : 1.8}/><span>{label}</span></button>)}</nav></div>;
+  return <div className="app">{splash && <div className={`splash-screen ${splashProgress === 100 ? 'splash-finishing' : ''}`} role="status" aria-label="Pembe Beauty açılıyor">
+    <div className="splash-ambient splash-ambient-one"/><div className="splash-ambient splash-ambient-two"/>
+    <div className="splash-art-wrap"><img className="splash-art" src="/pembe-splash.webp" alt="Pembe Beauty açılış görseli"/><span className="splash-spark splash-spark-one">✦</span><span className="splash-spark splash-spark-two">✧</span><span className="splash-spark splash-spark-three">✦</span></div>
+    <div className="splash-progress-area"><div className="splash-progress-label"><span>Güzellik dünyan hazırlanıyor</span><strong>%{splashProgress}</strong></div><div className="splash-progress-track"><div className="splash-progress-fill" style={{ width: `${splashProgress}%` }}/></div><p className="splash-loading-text">{splashProgress === 100 ? 'Hazırsın! 💗' : 'Pembe Beauty yükleniyor...'}</p></div>
+  </div>}<main className="content">{page === 'home' && <HomePage/>}{page === 'editor' && <EditorPage/>}{page === 'explore' && <ExplorePage/>}{page === 'forum' && <ForumPage/>}{page === 'messages' && <MessagesPage/>}{page === 'tips' && <TipsPage/>}{page === 'profile' && <ProfilePage/>}{['premium','hair','makeup'].includes(page) && <ComingSoon type={page}/>}</main><input ref={fileRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={uploadPhoto}/><nav className="bottom-nav">{navigation.map(([id, label, Icon]) => <button key={id} className={page === id ? 'nav-item active' : 'nav-item'} onClick={() => navigate(id)}><Icon size={22} strokeWidth={page === id ? 2.3 : 1.8}/><span>{label}</span></button>)}</nav></div>;
 }
 
 createRoot(document.getElementById('root')).render(<React.StrictMode><App/></React.StrictMode>);
