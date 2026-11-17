@@ -55,3 +55,30 @@
 .splash-art{object-fit:contain!important;object-position:center!important;mask-image:none!important;-webkit-mask-image:none!important}
 .splash-progress-area{z-index:5}
 
+/* Pembe Beauty - Premium görselli ana sayfa (yalnızca ana sayfa bölümleri) */
+.luxe-welcome{position:relative;min-height:294px;overflow:hidden;isolation:isolate;background:linear-gradient(125deg,#6e165f,#e04b9b);border-radius:27px;box-shadow:0 13px 29px #b34b9633}
+.luxe-hero-image{position:absolute;z-index:-2;right:0;top:0;width:65%;height:100%;object-fit:cover;object-position:48% center;filter:saturate(1.18) contrast(1.06)}
+.luxe-hero-overlay{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#701153 0%,#911c70f5 37%,#ad2d8588 66%,#af3b7040 100%)}
+.luxe-hero-content{position:relative;z-index:2;max-width:80%;padding:27px 0 28px 0}
+.luxe-welcome .eyebrow{border:1px solid #ffffff5c;background:#ffffff20;box-shadow:0 0 18px #f891ce80;white-space:nowrap}
+.luxe-welcome h1{font-size:clamp(26px,6vw,37px);line-height:1.12;text-shadow:0 2px 12px #4d0a4a66;letter-spacing:-1px}
+.luxe-welcome p{max-width:250px;font-size:12px;line-height:1.55;text-shadow:0 1px 8px #4d0a4a80}
+.luxe-welcome .hero-btn{font-size:12px;padding:12px 13px;white-space:nowrap;box-shadow:0 5px 20px #ffb7e666}
+.luxe-hero-spark{position:absolute;color:#ffe3f5;text-shadow:0 0 12px #ff8ed8;pointer-events:none;z-index:1;font-size:27px}
+.luxe-star-one{top:17%;right:39%}.luxe-star-two{top:33%;right:30%}
+.luxe-feature{position:relative;isolation:isolate;min-height:185px;margin-top:17px;padding:20px 19px;border-radius:25px;overflow:hidden;background:#7f1e6d;color:#fff;box-shadow:0 10px 24px #b14b9024}
+.luxe-feature-photo{position:absolute;z-index:-2;right:0;top:0;width:61%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.2)}
+.luxe-feature-tint{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#861666 0%,#a72582ee 44%,#bf399466 72%,#bd468733 100%)}
+.luxe-feature-content{position:relative;max-width:70%;display:flex;align-items:flex-start;flex-direction:column}
+.luxe-feature-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#ffffff2b;border:1px solid #ffffff35;box-shadow:0 4px 15px #4d0b4533;margin-bottom:10px}
+.luxe-feature h3{font-size:19px;line-height:1.2;margin:0 0 8px;color:inherit}
+.luxe-feature p{font-size:12px;line-height:1.45;margin:0 0 13px;max-width:215px;color:inherit}
+.luxe-feature button{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border:0;border-radius:15px;background:#fff0fb;color:#97146d;font-size:12px;font-weight:800;box-shadow:0 5px 17px #5010463b}
+.luxe-forum{background:#f6d3e9;color:#63174d}
+.luxe-forum .luxe-feature-tint{background:linear-gradient(90deg,#ffe3f2 0%,#f6c7e5f5 45%,#f6c7e58c 72%,#f6c7e540 100%)}
+.luxe-forum .luxe-feature-icon{background:#f6a3d86b;border-color:#ffffffa0;color:#ae2783}
+.luxe-forum button{background:#fff6fc;color:#a32079}
+.luxe-assistant{background:#842675}
+.luxe-assistant .luxe-feature-tint{background:linear-gradient(90deg,#7e216f 0%,#9e348eea 44%,#b94f9a77 72%,#c55a9a30 100%)}
+@media(max-width:380px){.luxe-hero-content{max-width:90%}.luxe-welcome h1{font-size:27px}.luxe-feature-content{max-width:75%}.luxe-feature h3{font-size:17px}}
+
